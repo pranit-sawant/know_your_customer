@@ -7,6 +7,7 @@ import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.XYEdges;
 import net.rim.device.api.ui.component.BasicEditField;
 import net.rim.device.api.ui.component.LabelField;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.Border;
 import net.rim.device.api.ui.decor.BorderFactory;
 import net.rim.device.api.ui.text.TextFilter;
@@ -39,6 +40,8 @@ public class GeneralInfoScreen extends KycScreen {
 
 	/** The btn submit. */
 	private EmbossedButtonField btnSubmit;
+	
+	private VerticalFieldManager vfmChildManager;
 
 	/**
 	 * Instantiates a new general info screen.
@@ -87,5 +90,18 @@ public class GeneralInfoScreen extends KycScreen {
 		efAge.setFilter(TextFilter.get(TextFilter.NUMERIC));
 		/****/
 		btnSubmit = new EmbossedButtonField("Submit");
+		/****/
+		parentManager = new ForegroundManager();
+		vfmChildManager = new VerticalFieldManager();
+		/****/
+		vfmChildManager.add(lblFirstName);
+		vfmChildManager.add(efFirstName);
+		vfmChildManager.add(lblLastName);
+		vfmChildManager.add(efLastName);
+		vfmChildManager.add(lblAge);
+		vfmChildManager.add(efAge);
+		vfmChildManager.add(btnSubmit);
+		parentManager.add(vfmChildManager);
+		add(parentManager);
 	}
 }

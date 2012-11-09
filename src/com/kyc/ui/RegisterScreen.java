@@ -8,8 +8,10 @@ import net.rim.device.api.ui.XYEdges;
 import net.rim.device.api.ui.component.BasicEditField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.PasswordEditField;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.Border;
 import net.rim.device.api.ui.decor.BorderFactory;
+import net.rim.device.api.ui.text.TextFilter;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -70,6 +72,8 @@ public class RegisterScreen extends KycScreen {
 
 	/** The btn register. */
 	private EmbossedButtonField btnRegister;
+	
+	private VerticalFieldManager vfmChildManager;
 
 	/**
 	 * Instantiates a new register screen.
@@ -84,47 +88,47 @@ public class RegisterScreen extends KycScreen {
 	 * Setup comp.
 	 */
 	private void setupComp() {
-		lblAccType = new LabelField("FirstName: ");
+		lblAccType = new LabelField("Account Type: ");
 		lblAccType.setMargin(10, 0, 10, 5);
 		lblAccType.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,
 				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblContact = new LabelField();
+		lblContact = new LabelField("Contact: ");
 		lblContact.setMargin(10, 0, 10, 5);
 		lblContact.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,
 				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblFirstName = new LabelField();
+		lblFirstName = new LabelField("First Name: ");
 		lblFirstName.setMargin(10, 0, 10, 5);
 		lblFirstName.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,
 				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblGen = new LabelField();
+		lblGen = new LabelField("Gender");
 		lblGen.setMargin(10, 0, 10, 5);
 		lblGen.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8, 8,
 				8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblLastName = new LabelField();
+		lblLastName = new LabelField("Last Name: ");
 		lblLastName.setMargin(10, 0, 10, 5);
 		lblLastName.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,
 				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblPass = new LabelField();
+		lblPass = new LabelField("Password: ");
 		lblPass.setMargin(10, 0, 10, 5);
 		lblPass.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8,
 				8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblRePass = new LabelField();
+		lblRePass = new LabelField("Retype Password: ");
 		lblRePass.setMargin(10, 0, 10, 5);
 		lblRePass.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8,
 				8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblZip = new LabelField();
+		lblZip = new LabelField("Zip: ");
 		lblZip.setMargin(10, 0, 10, 5);
 		lblZip.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8, 8,
 				8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
-		lblUserId = new LabelField();
+		lblUserId = new LabelField("User Id: ");
 		lblUserId.setMargin(10, 0, 10, 5);
 		lblUserId.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8,
 				8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));
@@ -133,6 +137,7 @@ public class RegisterScreen extends KycScreen {
 		efContact.setMargin(10, 0, 10, 5);
 		efContact.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,
 				8, 8), Bitmap.getBitmapResource("myborder.png")));
+		efContact.setFilter(TextFilter.get(TextFilter.PHONE));
 		/****/
 		efFirstName = new BasicEditField();
 		efFirstName.setMargin(10, 0, 10, 5);
@@ -155,18 +160,39 @@ public class RegisterScreen extends KycScreen {
 		efZip.setBorder(BorderFactory.createBitmapBorder(
 				new XYEdges(8, 8, 8, 8), Bitmap
 						.getBitmapResource("myborder.png")));
+		efZip.setFilter(TextFilter.get(TextFilter.NUMERIC));
 		/****/
-		pefPass = new PasswordEditField();
+		pefPass = new PasswordEditField("", "", 10, USE_ALL_WIDTH);
 		pefPass.setMargin(10, 0, 10, 5);
 		pefPass.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8, 8,
 				8), Bitmap.getBitmapResource("myborder.png")));
 		/****/
-		pefRePass = new PasswordEditField();
+		pefRePass = new PasswordEditField("", "", 10, USE_ALL_WIDTH);
 		pefRePass.setMargin(10, 0, 10, 5);
 		pefRePass.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,
 				8, 8), Bitmap.getBitmapResource("myborder.png")));
 		/****/
 		btnRegister = new EmbossedButtonField("Register", FIELD_HCENTER);
 		/****/
+		parentManager = new ForegroundManager();
+		vfmChildManager = new VerticalFieldManager(VERTICAL_SCROLL|VERTICAL_SCROLLBAR);
+		/****/
+		vfmChildManager.add(lblFirstName);
+		vfmChildManager.add(efFirstName);
+		vfmChildManager.add(lblLastName);
+		vfmChildManager.add(lblUserId);
+		vfmChildManager.add(efId);
+		vfmChildManager.add(lblPass);
+		vfmChildManager.add(pefPass);
+		vfmChildManager.add(lblRePass);
+		vfmChildManager.add(pefRePass);
+		vfmChildManager.add(lblContact);
+		vfmChildManager.add(efContact);
+		vfmChildManager.add(lblZip);
+		vfmChildManager.add(efZip);
+		vfmChildManager.add(btnRegister);
+		
+		parentManager.add(vfmChildManager);
+		add(parentManager);
 	}
 }
