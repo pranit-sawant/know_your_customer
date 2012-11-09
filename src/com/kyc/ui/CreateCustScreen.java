@@ -8,6 +8,7 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.component.LabelField;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,6 +37,7 @@ public class CreateCustScreen extends KycScreen {
 	 */
 	public CreateCustScreen() {
 		super(NO_VERTICAL_SCROLL | USE_ALL_HEIGHT);
+		setTitle("Know Your Customer");
 		initComp();
 	}
 
@@ -46,6 +48,8 @@ public class CreateCustScreen extends KycScreen {
 		app = getKycApp();
 		/****/
 		parentForeManager = new ForegroundManager();
+		/****/
+		addHeading("Fill Customer Information");
 		/****/
 		buttonSet = new ListStyleButtonSet();
 		link = new ListStyleButtonField("General Information", bmpCaret);
@@ -103,4 +107,16 @@ public class CreateCustScreen extends KycScreen {
 	private void pushScreen(Screen toPush) {
 		app.pushScreen(toPush);
 	}
+	
+	/**
+	 * Adds the heading.
+	 *
+	 * @param label the label
+	 */
+	private void addHeading( String label ) 
+    {
+        LabelField header = new LabelField( label );
+        header.setMargin( 15, 5, 0, 20 );
+        parentForeManager.add( header );
+    }
 }
