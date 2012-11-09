@@ -8,6 +8,9 @@ import net.rim.device.api.ui.XYEdges;
 import net.rim.device.api.ui.component.BasicEditField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.PasswordEditField;
+import net.rim.device.api.ui.component.RadioButtonField;
+import net.rim.device.api.ui.component.RadioButtonGroup;
+import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.Border;
 import net.rim.device.api.ui.decor.BorderFactory;
@@ -73,7 +76,32 @@ public class RegisterScreen extends KycScreen {
 	/** The btn register. */
 	private EmbossedButtonField btnRegister;
 	
+	/** The vfm child manager. */
 	private VerticalFieldManager vfmChildManager;
+	
+	/** The rbg gen. */
+	private RadioButtonGroup rbgGen;
+	
+	/** The rbf male. */
+	private RadioButtonField rbfMale;
+	
+	/** The rbf female. */
+	private RadioButtonField rbfFemale;
+	
+	/** The rbg acc type. */
+	private RadioButtonGroup rbgAccType;
+	
+	/** The rbf agent. */
+	private RadioButtonField rbfAgent;
+	
+	/** The rbf admin. */
+	private RadioButtonField rbfAdmin;
+	
+	/** The hfm radio gen. */
+	private HorizontalFieldManager hfmRadioGen;
+	
+	/** The hfm radio acc. */
+	private HorizontalFieldManager hfmRadioAcc;
 
 	/**
 	 * Instantiates a new register screen.
@@ -174,12 +202,23 @@ public class RegisterScreen extends KycScreen {
 		/****/
 		btnRegister = new EmbossedButtonField("Register", FIELD_HCENTER);
 		/****/
+		rbgAccType = new RadioButtonGroup();
+		rbfAdmin = new RadioButtonField("Admin", rbgAccType, true);
+		rbfAgent = new RadioButtonField("Agent", rbgAccType, false);
+		/****/
+		rbgGen = new RadioButtonGroup();
+		rbfFemale = new RadioButtonField("Female", rbgGen, false);
+		rbfMale = new RadioButtonField("Male", rbgGen, true);
+		/****/
 		parentManager = new ForegroundManager();
 		vfmChildManager = new VerticalFieldManager(VERTICAL_SCROLL|VERTICAL_SCROLLBAR);
+		hfmRadioAcc = new HorizontalFieldManager(USE_ALL_WIDTH);
+		hfmRadioGen = new HorizontalFieldManager(USE_ALL_WIDTH);
 		/****/
 		vfmChildManager.add(lblFirstName);
 		vfmChildManager.add(efFirstName);
 		vfmChildManager.add(lblLastName);
+		vfmChildManager.add(efLastName);
 		vfmChildManager.add(lblUserId);
 		vfmChildManager.add(efId);
 		vfmChildManager.add(lblPass);
@@ -190,6 +229,14 @@ public class RegisterScreen extends KycScreen {
 		vfmChildManager.add(efContact);
 		vfmChildManager.add(lblZip);
 		vfmChildManager.add(efZip);
+		vfmChildManager.add(lblAccType);
+		hfmRadioAcc.add(rbfAdmin);
+		hfmRadioAcc.add(rbfAgent);
+		vfmChildManager.add(hfmRadioAcc);
+		vfmChildManager.add(lblGen);
+		hfmRadioGen.add(rbfMale);
+		hfmRadioGen.add(rbfFemale);
+		vfmChildManager.add(hfmRadioGen);
 		vfmChildManager.add(btnRegister);
 		
 		parentManager.add(vfmChildManager);

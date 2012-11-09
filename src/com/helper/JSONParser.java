@@ -13,6 +13,8 @@ import org.json.me.JSONException;
 import org.json.me.JSONObject;
 import org.json.me.JSONTokener;
 
+import com.api.util.ConnectionManager;
+
 public class JSONParser {
 	static InputStream is = null;
 	static Object jObj = null;
@@ -29,7 +31,7 @@ public class JSONParser {
 	public Object getJsonFromUrl(String url){
 		//Making Http GET request
 		try {
-			HttpConnection con = (HttpConnection) Connector.open(url);
+			HttpConnection con = (HttpConnection) Connector.open(url+ConnectionManager.getConnectionString()+"connectionTimeOut=15000");
 			con.setRequestMethod(HttpConnection.GET);
 			is = con.openInputStream();
 		} catch (IOException e) {

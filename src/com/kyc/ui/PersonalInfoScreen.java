@@ -55,7 +55,7 @@ public class PersonalInfoScreen extends KycScreen implements
 	 * Instantiates a new personal info screen.
 	 */
 	public PersonalInfoScreen() {
-		super(NO_VERTICAL_SCROLL | USE_ALL_HEIGHT);
+		super(USE_ALL_HEIGHT);
 		setTitle("Know your customer");
 		initComp();
 	}

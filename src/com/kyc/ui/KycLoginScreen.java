@@ -54,8 +54,8 @@ public class KycLoginScreen extends KycScreen {
 	/** The btn login. */
 	private EmbossedButtonField btnLogin;
 
-	/** The btn cancel. */
-	private EmbossedButtonField btnCancel;
+	/** The btn Register. */
+	private EmbossedButtonField btnRegister;
 
 	/** The app. */
 	private KycApp app;
@@ -145,13 +145,13 @@ public class KycLoginScreen extends KycScreen {
 		/*************/
 		hfmEmbossed = new JustifiedEvenlySpacedHorizontalFieldManager();
 		btnLogin = new EmbossedButtonField("Login", USE_ALL_WIDTH);
-		btnCancel = new EmbossedButtonField("Cancel", USE_ALL_WIDTH);
+		btnRegister = new EmbossedButtonField("Register", USE_ALL_WIDTH);
 		btnLogin.setMargin(10, 0, 10, 10);
 		// btnLogin.setPadding(5, 5, 5, 5);
-		btnCancel.setMargin(10, 10, 10, 10);
+		btnRegister.setMargin(10, 10, 10, 10);
 		// btnCancel.setPadding(5, 5, 5, 5);
 		hfmEmbossed.add(btnLogin);
-		hfmEmbossed.add(btnCancel);
+		hfmEmbossed.add(btnRegister);
 		/************/
 		foregroundManager.add(hfmUsrName);
 		foregroundManager.add(hfmPass);
@@ -170,6 +170,11 @@ public class KycLoginScreen extends KycScreen {
 
 			new AuthUserTask().onExecute();
 		}
+		
+		if (field == btnRegister) {
+			app.pushScreen(new RegisterScreen());
+		}
+		
 		return super.navigationClick(status, time);
 	}
 
@@ -177,12 +182,9 @@ public class KycLoginScreen extends KycScreen {
 	 * The Class AuthUserTask.
 	 */
 	class AuthUserTask extends AsyncTask {
-		
+
 		/** The popup screen. */
 		private PleaseWaitPopupScreen popupScreen;
-		
-		/** The is auth. */
-		private boolean isAuth;
 
 		/*
 		 * (non-Javadoc)
@@ -190,55 +192,81 @@ public class KycLoginScreen extends KycScreen {
 		 * @see com.helper.asynctask.AsyncTask#doInBackground()
 		 */
 		public void doInBackground() {
-			url = "http://10.0.10.52:8084/KYC-WEB/auth?id="
-					+ fefUserName.getText().trim() + "&pwd="
-					+ fefPass.getText().trim();
-			// ab@ab.com ab
+			final String user = fefUserName.getText().trim();
+			final String pass = fefPass.getText().trim();
 
-			try {
-				jObj = (JSONObject) parser.getJsonFromUrl(url);
-			} catch (final Exception e) {
-				app.invokeLater(new Runnable() {
-
-					public void run() {
-						Dialog.alert("Error: " + e.getMessage());
-					}
-				});
-
-			}
-
-			if (jObj != null) {
+			if (user.length() > 0 && pass.length() > 0) {
+				url = "http://10.0.10.52:8084/KYC-WEB/auth?id=" + user
+						+ "&pwd=" + pass;
+				final String str = url;
 				try {
-					isAuth = jObj.getBoolean(AUTHONTICATED);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-				if (isAuth) {
-					app.pushScreen(new DashboardScreen());
-				}else{
+					jObj = (JSONObject) parser.getJsonFromUrl(url);
+
 					app.invokeLater(new Runnable() {
 
 						public void run() {
-							Dialog.alert("fatal: Authentication failed");
+							try {
+								Dialog.alert("Error: "
+										+ jObj.getBoolean(AUTHONTICATED) + "  "
+										+ str);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					});
+				} catch (final Exception e) {
+					app.invokeLater(new Runnable() {
+
+						public void run() {
+							Dialog.alert("Error: " + e.getMessage());
+						}
+					});
+
 				}
 			}
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see com.helper.asynctask.AsyncTask#onPostExecute()
 		 */
 		public void onPostExecute() {
 			app.popScreen(popupScreen);
+			if (jObj != null) {
+				try {
+					if (jObj.getBoolean(AUTHONTICATED)) {
+						app.pushScreen(new DashboardScreen());
+					} else {
+						app.invokeLater(new Runnable() {
+
+							public void run() {
+								Dialog.alert("fatal: Authentication failed");
+							}
+						});
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				app.invokeLater(new Runnable() {
+
+					public void run() {
+						Dialog.alert("User name & password field can not be empty !");
+					}
+				});
+			}
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see com.helper.asynctask.AsyncTask#onPreExecute()
 		 */
 		public void onPreExecute() {
-			popupScreen = new PleaseWaitPopupScreen("Signing in....");
+			popupScreen = new PleaseWaitPopupScreen("wait..");
 			app.pushScreen(popupScreen);
 		}
 

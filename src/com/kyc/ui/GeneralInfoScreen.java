@@ -48,7 +48,7 @@ public class GeneralInfoScreen extends KycScreen {
 	 * Instantiates a new general info screen.
 	 */
 	public GeneralInfoScreen() {
-		super(NO_VERTICAL_SCROLL|USE_ALL_HEIGHT);
+		super(USE_ALL_HEIGHT);
 		setTitle("Know your customer");
 		initComp();
 	}
