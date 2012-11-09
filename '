@@ -1,0 +1,361 @@
+[1mdiff --git a/bin/com/kyc/ui/CreateCustScreen.class b/bin/com/kyc/ui/CreateCustScreen.class[m
+[1mindex eea122a..a84ed9d 100644[m
+Binary files a/bin/com/kyc/ui/CreateCustScreen.class and b/bin/com/kyc/ui/CreateCustScreen.class differ
+[1mdiff --git a/bin/com/kyc/ui/DashboardScreen.class b/bin/com/kyc/ui/DashboardScreen.class[m
+[1mindex 4497b5f..40f1752 100644[m
+Binary files a/bin/com/kyc/ui/DashboardScreen.class and b/bin/com/kyc/ui/DashboardScreen.class differ
+[1mdiff --git a/src/com/kyc/ui/CreateCustScreen.java b/src/com/kyc/ui/CreateCustScreen.java[m
+[1mindex 0b15f0c..ec9ca78 100644[m
+[1m--- a/src/com/kyc/ui/CreateCustScreen.java[m
+[1m+++ b/src/com/kyc/ui/CreateCustScreen.java[m
+[36m@@ -1,11 +1,106 @@[m
+ package com.kyc.ui;[m
+ [m
+[32m+[m[32mimport com.device.api.ui.custom.component.ListStyleButtonField;[m
+[32m+[m[32mimport com.device.api.ui.custom.container.ListStyleButtonSet;[m
+[32m+[m[32mimport com.kyc.app.KycApp;[m
+[32m+[m
+[32m+[m[32mimport net.rim.device.api.system.Bitmap;[m
+[32m+[m[32mimport net.rim.device.api.ui.Field;[m
+[32m+[m[32mimport net.rim.device.api.ui.FieldChangeListener;[m
+[32m+[m[32mimport net.rim.device.api.ui.Screen;[m
+[32m+[m
+[32m+[m[32m// TODO: Auto-generated Javadoc[m
+[32m+[m[32m/**[m
+[32m+[m[32m * The Class CreateCustScreen.[m
+[32m+[m[32m */[m
+ public class CreateCustScreen extends KycScreen {[m
+ [m
+[32m+[m	[32m/** The caret. */[m
+[32m+[m	[32mprivate Bitmap bmpCaret = Bitmap[m
+[32m+[m			[32m.getBitmapResource("chevron_right_black_15x22.png");[m
+[32m+[m
+[32m+[m	[32m/** The parent fore manager. */[m
+[32m+[m	[32mprivate ForegroundManager parentForeManager;[m
+[32m+[m
+[32m+[m	[32m/** The link. */[m
+[32m+[m	[32mprivate ListStyleButtonField link;[m
+[32m+[m
+[32m+[m	[32m/** The button set. */[m
+[32m+[m	[32mprivate ListStyleButtonSet buttonSet;[m
+[32m+[m[41m	[m
+[32m+[m	[32m/** The app. */[m
+[32m+[m	[32mprivate KycApp app;[m
+[32m+[m
+ 	/**[m
+ 	 * Instantiates a new creates the cust screen.[m
+ 	 */[m
+ 	public CreateCustScreen() {[m
+[31m-		super(NO_VERTICAL_SCROLL);[m
+[32m+[m		[32msuper(NO_VERTICAL_SCROLL | USE_ALL_HEIGHT);[m
+[32m+[m		[32minitComp();[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m/**[m
+[32m+[m	[32m * Inits the comp.[m
+[32m+[m	[32m */[m
+[32m+[m	[32mprivate void initComp() {[m
+[32m+[m		[32mapp = getKycApp();[m
+[32m+[m		[32m/****/[m
+[32m+[m		[32mparentForeManager = new ForegroundManager();[m
+[32m+[m		[32m/****/[m
+[32m+[m		[32mbuttonSet = new ListStyleButtonSet();[m
+[32m+[m		[32mlink = new ListStyleButtonField("General Information", bmpCaret);[m
+[32m+[m		[32mlink.setChangeListener(new FieldChangeListener() {[m
+[32m+[m
+[32m+[m			[32mpublic void fieldChanged(Field field, int context) {[m
+[32m+[m				[32m// TODO Auto-generated method stub[m
+[32m+[m				[32mpushScreen(new GeneralInfoScreen());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32mbuttonSet.add(link);[m
+[32m+[m		[32m/****/[m
+[32m+[m		[32mlink = new ListStyleButtonField("Personal Information", bmpCaret);[m
+[32m+[m		[32mlink.setChangeListener(new FieldChangeListener() {[m
+[32m+[m
+[32m+[m			[32mpublic void fieldChanged(Field field, int context) {[m
+[32m+[m				[32m// TODO Auto-generated method stub[m
+[32m+[m				[32mpushScreen(new PersonalInfoScreen());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m
+[32m+[m		[32mbuttonSet.add(link);[m
+[32m+[m		[32m/****/[m
+[32m+[m		[32mlink = new ListStyleButtonField("Picture", bmpCaret);[m
+[32m+[m		[32mlink.setChangeListener(new FieldChangeListener() {[m
+[32m+[m
+[32m+[m			[32mpublic void fieldChanged(Field field, int context) {[m
+[32m+[m				[32m// TODO Auto-generated method stub[m
+[32m+[m				[32mpushScreen(new GeneralInfoScreen());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32mbuttonSet.add(link);[m
+[32m+[m
+[32m+[m		[32m/****/[m
+[32m+[m		[32mlink = new ListStyleButtonField("Location", bmpCaret);[m
+[32m+[m		[32mlink.setChangeListener(new FieldChangeListener() {[m
+[32m+[m
+[32m+[m			[32mpublic void fieldChanged(Field field, int context) {[m
+[32m+[m				[32m// TODO Auto-generated method stub[m
+[32m+[m				[32m// pushScreen(new GeneralInfoScreen());[m
+[32m+[m			[32m}[m
+[32m+[m		[32m});[m
+[32m+[m		[32mbuttonSet.add(link);[m
+[32m+[m		[32mparentForeManager.add(buttonSet);[m
+[32m+[m[41m		[m
+[32m+[m		[32madd(parentForeManager);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m/**[m
+[32m+[m	[32m * Push screen.[m
+[32m+[m	[32m *[m[41m [m
+[32m+[m	[32m * @param toPush[m
+[32m+[m	[32m *            the to push[m
+[32m+[m	[32m */[m
+[32m+[m	[32mprivate void pushScreen(Screen toPush) {[m
+[32m+[m		[32mapp.pushScreen(toPush);[m
+ 	}[m
+ }[m
+[1mdiff --git a/src/com/kyc/ui/DashboardScreen.java b/src/com/kyc/ui/DashboardScreen.java[m
+[1mindex 67bbaab..7064e64 100644[m
+[1m--- a/src/com/kyc/ui/DashboardScreen.java[m
+[1m+++ b/src/com/kyc/ui/DashboardScreen.java[m
+[36m@@ -5,16 +5,18 @@[m [mpackage com.kyc.ui;[m
+ [m
+ import net.rim.device.api.system.Display;[m
+ import net.rim.device.api.ui.Field;[m
+[32m+[m[32mimport net.rim.device.api.ui.FieldChangeListener;[m
+ import net.rim.device.api.ui.container.VerticalFieldManager;[m
+ [m
+ import com.device.api.ui.custom.component.EmbossedButtonField;[m
+ import com.device.api.ui.custom.container.JustifiedEvenlySpacedHorizontalFieldManager;[m
+[32m+[m[32mimport com.kyc.app.KycApp;[m
+ [m
+ // TODO: Auto-generated Javadoc[m
+ /**[m
+  * The Class DashboardScreen.[m
+  */[m
+[31m-public class DashboardScreen extends KycScreen {[m
+[32m+[m[32mpublic class DashboardScreen extends KycScreen implements FieldChangeListener{[m
+ 	[m
+ 	/** The parent manager. */[m
+ 	private ForegroundManager parentManager;[m
+[36m@@ -39,13 +41,18 @@[m [mpublic class DashboardScreen extends KycScreen {[m
+ 	[m
+ 	/** The btn download. */[m
+ 	private EmbossedButtonField btnDownload;[m
+[32m+[m[41m	[m
+[32m+[m	[32m/** The app. */[m
+[32m+[m	[32mprivate KycApp app;[m
+ [m
+ 	/**[m
+ 	 * Instantiates a new dashboard screen.[m
+ 	 */[m
+ 	public DashboardScreen() {[m
+ 		super(NO_VERTICAL_SCROLL);[m
+[31m-		setTitle("Know your customer");[m
+[32m+[m[41m		[m
+[32m+[m		[32msetTitle("Know Your Customer");[m
+[32m+[m[41m		[m
+ 		setupComponent();[m
+ 	}[m
+ [m
+[36m@@ -53,6 +60,7 @@[m [mpublic class DashboardScreen extends KycScreen {[m
+ 	 * Setup component.[m
+ 	 */[m
+ 	private void setupComponent() {[m
+[32m+[m		[32mapp = getKycApp();[m
+ 		// Init manager[m
+ 		parentManager = new ForegroundManager();[m
+ 		vfmParentCenter = new VerticalFieldManager();[m
+[36m@@ -86,6 +94,20 @@[m [mpublic class DashboardScreen extends KycScreen {[m
+ 		/************/[m
+ 		parentManager.add(vfmParentCenter);[m
+ 		add(parentManager);[m
+[32m+[m[41m		[m
+[32m+[m		[32mbtnDownload.setChangeListener(this);[m
+[32m+[m		[32mbtnNewCust.setChangeListener(this);[m
+[32m+[m		[32mbtnSettings.setChangeListener(this);[m
+[32m+[m		[32mbtnShowCust.setChangeListener(this);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m/* (non-Javadoc)[m
+[32m+[m	[32m * @see net.rim.device.api.ui.FieldChangeListener#fieldChanged(net.rim.device.api.ui.Field, int)[m
+[32m+[m	[32m */[m
+[32m+[m	[32mpublic void fieldChanged(Field field, int context) {[m
+[32m+[m		[32mif(field == btnNewCust){[m
+[32m+[m			[32mapp.pushScreen(new CreateCustScreen());[m
+[32m+[m		[32m}[m
+ 	}[m
+ [m
+ }[m
+[1mdiff --git a/src/com/kyc/ui/GeneralInfoScreen.java b/src/com/kyc/ui/GeneralInfoScreen.java[m
+[1mindex a4fd508..c77f312 100644[m
+[1m--- a/src/com/kyc/ui/GeneralInfoScreen.java[m
+[1m+++ b/src/com/kyc/ui/GeneralInfoScreen.java[m
+[36m@@ -41,13 +41,14 @@[m [mpublic class GeneralInfoScreen extends KycScreen {[m
+ 	/** The btn submit. */[m
+ 	private EmbossedButtonField btnSubmit;[m
+ 	[m
+[32m+[m	[32m/** The vfm child manager. */[m[41m[m
+ 	private VerticalFieldManager vfmChildManager;[m
+ [m
+ 	/**[m
+ 	 * Instantiates a new general info screen.[m
+ 	 */[m
+ 	public GeneralInfoScreen() {[m
+[31m-		super();[m
+[32m+[m		[32msuper(NO_VERTICAL_SCROLL|USE_ALL_HEIGHT);[m[41m[m
+ 		setTitle("Know your customer");[m
+ 		initComp();[m
+ 	}[m
+[36m@@ -73,17 +74,17 @@[m [mpublic class GeneralInfoScreen extends KycScreen {[m
+ 				8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m
+ 		/****/[m
+ 		efFirstName = new BasicEditField();[m
+[31m-		efFirstName.setMargin(10, 0, 10, 5);[m
+[32m+[m		[32mefFirstName.setMargin(10, 5, 10, 5);[m[41m[m
+ 		efFirstName.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8,[m
+ 				8, 8, 8), Bitmap.getBitmapResource("myborder.png")));[m
+ 		/****/[m
+ 		efLastName = new BasicEditField();[m
+[31m-		efLastName.setMargin(10, 0, 10, 5);[m
+[32m+[m		[32mefLastName.setMargin(10, 5, 10, 5);[m[41m[m
+ 		efLastName.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,[m
+ 				8, 8), Bitmap.getBitmapResource("myborder.png")));[m
+ 		/****/[m
+ 		efAge = new BasicEditField();[m
+[31m-		efAge.setMargin(10, 0, 10, 5);[m
+[32m+[m		[32mefAge.setMargin(10, 5, 10, 5);[m[41m[m
+ 		efAge.setBorder(BorderFactory.createBitmapBorder([m
+ 				new XYEdges(8, 8, 8, 8), Bitmap[m
+ 						.getBitmapResource("myborder.png")));[m
+[1mdiff --git a/src/com/kyc/ui/PersonalInfoScreen.java b/src/com/kyc/ui/PersonalInfoScreen.java[m
+[1mindex 26599be..b11c996 100644[m
+[1m--- a/src/com/kyc/ui/PersonalInfoScreen.java[m
+[1m+++ b/src/com/kyc/ui/PersonalInfoScreen.java[m
+[36m@@ -1,12 +1,16 @@[m
+ package com.kyc.ui;[m
+ [m
+ import com.device.api.ui.custom.component.EmbossedButtonField;[m
+[32m+[m[32mimport com.kyc.app.KycApp;[m[41m[m
+ [m
+ import net.rim.device.api.system.Bitmap;[m
+ import net.rim.device.api.ui.Color;[m
+[32m+[m[32mimport net.rim.device.api.ui.Field;[m[41m[m
+[32m+[m[32mimport net.rim.device.api.ui.FieldChangeListener;[m[41m[m
+ import net.rim.device.api.ui.XYEdges;[m
+ import net.rim.device.api.ui.component.BasicEditField;[m
+ import net.rim.device.api.ui.component.LabelField;[m
+[32m+[m[32mimport net.rim.device.api.ui.container.VerticalFieldManager;[m[41m[m
+ import net.rim.device.api.ui.decor.Border;[m
+ import net.rim.device.api.ui.decor.BorderFactory;[m
+ [m
+[36m@@ -14,7 +18,8 @@[m [mimport net.rim.device.api.ui.decor.BorderFactory;[m
+ /**[m
+  * The Class PersonalInfoScreen.[m
+  */[m
+[31m-public class PersonalInfoScreen extends KycScreen {[m
+[32m+[m[32mpublic class PersonalInfoScreen extends KycScreen implements[m[41m[m
+[32m+[m		[32mFieldChangeListener {[m[41m[m
+ [m
+ 	/** The parent manager. */[m
+ 	private ForegroundManager parentManager;[m
+[36m@@ -40,11 +45,17 @@[m [mpublic class PersonalInfoScreen extends KycScreen {[m
+ 	/** The btn submit. */[m
+ 	private EmbossedButtonField btnSubmit;[m
+ [m
+[32m+[m	[32m/** The vfm child manager. */[m[41m[m
+[32m+[m	[32mprivate VerticalFieldManager vfmChildManager;[m[41m[m
+[32m+[m[41m	[m
+[32m+[m	[32m/** The app. */[m[41m[m
+[32m+[m	[32mprivate KycApp app;[m[41m[m
+[32m+[m[41m[m
+ 	/**[m
+ 	 * Instantiates a new personal info screen.[m
+ 	 */[m
+ 	public PersonalInfoScreen() {[m
+[31m-		super();[m
+[32m+[m		[32msuper(NO_VERTICAL_SCROLL | USE_ALL_HEIGHT);[m[41m[m
+ 		setTitle("Know your customer");[m
+ 		initComp();[m
+ 	}[m
+[36m@@ -53,38 +64,62 @@[m [mpublic class PersonalInfoScreen extends KycScreen {[m
+ 	 * Inits the comp.[m
+ 	 */[m
+ 	private void initComp() {[m
+[32m+[m[32m//		app = getKycApp();[m[41m[m
+ 		/****/[m
+[31m-		lblBloodGrp = new LabelField("Qualificatin: ");[m
+[32m+[m		[32mlblBloodGrp = new LabelField("Blood Group: ");[m[41m[m
+ 		lblBloodGrp.setMargin(10, 0, 10, 5);[m
+ 		lblBloodGrp.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,[m
+ 				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m
+ 		/****/[m
+[31m-		lblQual = new LabelField("Weight: ");[m
+[32m+[m		[32mlblQual = new LabelField("Qualificatin: ");[m[41m[m
+ 		lblQual.setMargin(10, 0, 10, 5);[m
+[31m-		lblQual.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,[m
+[31m-				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m
+[32m+[m		[32mlblQual.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8,[m[41m[m
+[32m+[m				[32m8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m[41m[m
+ 		/****/[m
+ 		lblWeigh = new LabelField("Blood Group: ");[m
+ 		lblWeigh.setMargin(10, 0, 10, 5);[m
+[31m-		lblWeigh.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8,[m
+[31m-				8, 8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m
+[32m+[m		[32mlblWeigh.setBorder(BorderFactory.createRoundedBorder(new XYEdges(8, 8,[m[41m[m
+[32m+[m				[32m8, 8), Color.LIGHTBLUE, Border.STYLE_FILLED));[m[41m[m
+ 		/****/[m
+ 		efBloodGrp = new BasicEditField();[m
+[31m-		efBloodGrp.setMargin(10, 0, 10, 5);[m
+[32m+[m		[32mefBloodGrp.setMargin(10, 5, 10, 5);[m[41m[m
+ 		efBloodGrp.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,[m
+ 				8, 8), Bitmap.getBitmapResource("myborder.png")));[m
+ 		/****/[m
+ 		efQual = new BasicEditField();[m
+[31m-		efQual.setMargin(10, 0, 10, 5);[m
+[31m-		efQual.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,[m
+[31m-				8, 8), Bitmap.getBitmapResource("myborder.png")));[m
+[32m+[m		[32mefQual.setMargin(10, 5, 10, 5);[m[41m[m
+[32m+[m		[32mefQual.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8, 8,[m[41m[m
+[32m+[m				[32m8), Bitmap.getBitmapResource("myborder.png")));[m[41m[m
+ 		/****/[m
+ 		efWeigh = new BasicEditField();[m
+[31m-		efWeigh.setMargin(10, 0, 10, 5);[m
+[31m-		efWeigh.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,[m
+[31m-				8, 8), Bitmap.getBitmapResource("myborder.png")));[m
+[32m+[m		[32mefWeigh.setMargin(10, 5, 10, 5);[m[41m[m
+[32m+[m		[32mefWeigh.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8, 8,[m[41m[m
+[32m+[m				[32m8), Bitmap.getBitmapResource("myborder.png")));[m[41m[m
+ 		/****/[m
+ 		btnSubmit = new EmbossedButtonField("Submit");[m
+[31m-		[m
+[32m+[m		[32mbtnSubmit.setMargin(10, 0, 10, 5);[m[41m[m
+[32m+[m		[32m/****/[m[41m[m
+[32m+[m		[32mvfmChildManager = new VerticalFieldManager();[m[41m[m
+[32m+[m		[32mparentManager = new ForegroundManager();[m[41m[m
+[32m+[m		[32m/****/[m[41m[m
+[32m+[m		[32mvfmChildManager.add(lblQual);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(efQual);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(lblWeigh);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(efWeigh);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(lblBloodGrp);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(efBloodGrp);[m[41m[m
+[32m+[m		[32mvfmChildManager.add(btnSubmit);[m[41m[m
+[32m+[m[41m[m
+[32m+[m		[32mparentManager.add(vfmChildManager);[m[41m[m
+[32m+[m[41m[m
+[32m+[m		[32madd(parentManager);[m[41m[m
+[32m+[m[41m[m
+[32m+[m		[32mbtnSubmit.setChangeListener(this);[m[41m[m
+[32m+[m	[32m}[m[41m[m
+[32m+[m[41m[m
+[32m+[m	[32mpublic void fieldChanged(Field field, int context) {[m[41m[m
+[32m+[m		[32mif(field == btnSubmit){[m[41m[m
+[32m+[m[41m			[m
+[32m+[m		[32m}[m[41m[m
+ 	}[m
+ }[m
+warning: LF will be replaced by CRLF in deliverables/Standard/KYC.alx.
+The file will have its original line endings in your working directory.
