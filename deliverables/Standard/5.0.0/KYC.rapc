@@ -1,9 +1,0 @@
-MIDlet-Name: know_your_customer
-MIDlet-Version: 1.0.0
-MIDlet-Vendor: BlackBerry Developer
-MIDlet-Jar-URL: know_your_customer.jar
-MIDlet-Jar-Size: 0
-MicroEdition-Profile: MIDP-2.0
-MicroEdition-Configuration: CLDC-1.1
-MIDlet-1: ,images/kyc_app_icon.png,
-RIM-MIDlet-Flags-1: 0

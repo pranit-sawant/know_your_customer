@@ -5,16 +5,18 @@ package com.kyc.ui;
 
 import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.device.api.ui.custom.component.EmbossedButtonField;
 import com.device.api.ui.custom.container.JustifiedEvenlySpacedHorizontalFieldManager;
+import com.kyc.app.KycApp;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class DashboardScreen.
  */
-public class DashboardScreen extends KycScreen {
+public class DashboardScreen extends KycScreen implements FieldChangeListener{
 	
 	/** The parent manager. */
 	private ForegroundManager parentManager;
@@ -39,13 +41,18 @@ public class DashboardScreen extends KycScreen {
 	
 	/** The btn download. */
 	private EmbossedButtonField btnDownload;
+	
+	/** The app. */
+	private KycApp app;
 
 	/**
 	 * Instantiates a new dashboard screen.
 	 */
 	public DashboardScreen() {
 		super(NO_VERTICAL_SCROLL);
-		setTitle("Know your customer");
+		
+		setTitle("Know Your Customer");
+		
 		setupComponent();
 	}
 
@@ -53,6 +60,7 @@ public class DashboardScreen extends KycScreen {
 	 * Setup component.
 	 */
 	private void setupComponent() {
+		app = getKycApp();
 		// Init manager
 		parentManager = new ForegroundManager();
 		vfmParentCenter = new VerticalFieldManager();
@@ -86,6 +94,20 @@ public class DashboardScreen extends KycScreen {
 		/************/
 		parentManager.add(vfmParentCenter);
 		add(parentManager);
+		
+		btnDownload.setChangeListener(this);
+		btnNewCust.setChangeListener(this);
+		btnSettings.setChangeListener(this);
+		btnShowCust.setChangeListener(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see net.rim.device.api.ui.FieldChangeListener#fieldChanged(net.rim.device.api.ui.Field, int)
+	 */
+	public void fieldChanged(Field field, int context) {
+		if(field == btnNewCust){
+			app.pushScreen(new CreateCustScreen());
+		}
 	}
 
 }

@@ -41,13 +41,14 @@ public class GeneralInfoScreen extends KycScreen {
 	/** The btn submit. */
 	private EmbossedButtonField btnSubmit;
 	
+	/** The vfm child manager. */
 	private VerticalFieldManager vfmChildManager;
 
 	/**
 	 * Instantiates a new general info screen.
 	 */
 	public GeneralInfoScreen() {
-		super();
+		super(NO_VERTICAL_SCROLL|USE_ALL_HEIGHT);
 		setTitle("Know your customer");
 		initComp();
 	}
@@ -73,17 +74,17 @@ public class GeneralInfoScreen extends KycScreen {
 				8), Color.LIGHTBLUE, Border.STYLE_FILLED));
 		/****/
 		efFirstName = new BasicEditField();
-		efFirstName.setMargin(10, 0, 10, 5);
+		efFirstName.setMargin(10, 5, 10, 5);
 		efFirstName.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8,
 				8, 8, 8), Bitmap.getBitmapResource("myborder.png")));
 		/****/
 		efLastName = new BasicEditField();
-		efLastName.setMargin(10, 0, 10, 5);
+		efLastName.setMargin(10, 5, 10, 5);
 		efLastName.setBorder(BorderFactory.createBitmapBorder(new XYEdges(8, 8,
 				8, 8), Bitmap.getBitmapResource("myborder.png")));
 		/****/
 		efAge = new BasicEditField();
-		efAge.setMargin(10, 0, 10, 5);
+		efAge.setMargin(10, 5, 10, 5);
 		efAge.setBorder(BorderFactory.createBitmapBorder(
 				new XYEdges(8, 8, 8, 8), Bitmap
 						.getBitmapResource("myborder.png")));
